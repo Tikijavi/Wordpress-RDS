@@ -1,3 +1,10 @@
+# Claus de la instancia
+resource "aws_key_pair" "keypair" {
+    key_name    = var.key_pair
+    #public_key  = "mykey.pub"
+    public_key  = "${file("mykey.pub")}"
+}
+
 # Instància EC2 amb la instal·lació del wordpress
 resource "aws_instance" "WordPress" {
   depends_on = [aws_internet_gateway.public_internet_gw]
