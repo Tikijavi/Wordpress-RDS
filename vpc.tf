@@ -1,40 +1,40 @@
-# Crear VPC
+# Crea una nova VPC
 resource "aws_vpc" "my_vpc" {
-  cidr_block       = "192.168.0.0/16"
+  cidr_block    = "192.168.0.0/16"
   enable_dns_hostnames = true
- 
+
   tags = {
-    Name = "my_vpc"
+        Name = "my_vpc"
   }
 }
 
-# Subnet pública per a wordpress
+# Crea una subnet pública per al wordpress
 resource "aws_subnet" "public_subnet" {
-  vpc_id     = aws_vpc.my_vpc.id
+  vpc_id        = aws_vpc.my_vpc.id
   cidr_block = "192.168.5.0/24"
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "subnet_publica"
+        Name = "public_subnet"
   }
 }
 
-# Subnet privada per a la DB
+# Crea una subnet privada per a la base de dades
 resource "aws_subnet" "private_subnet" {
-  vpc_id     = aws_vpc.my_vpc.id
+  vpc_id        = aws_vpc.my_vpc.id
   cidr_block = "192.168.6.0/24"
- 
+
   tags = {
-    Name = "subnet_privada"
+        Name = "private_subnet"
   }
 }
 
-# Grup subnet de la DB 
+# Crea un grup de subxarxes de base de dades per a RDS sota el nostre VPC
 resource "aws_db_subnet_group" "db_subnet" {
-  name       = "rds_db"
+  name          = "rds_db"
   subnet_ids = [aws_subnet.private_subnet.id, aws_subnet.public_subnet.id ]
 
   tags = {
-    Name = "El nostre grup per a la subnet de la DB"
+        Name = "My DB subnet group"
   }
 }
