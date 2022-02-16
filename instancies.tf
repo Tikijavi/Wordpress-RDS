@@ -38,15 +38,6 @@ resource "aws_instance" "Wordpress" {
  provisioner "local-exec" {
   command = "echo ${aws_instance.Wordpress.public_ip} > publicIP.txt"
  }
-
-
-
- provisioner "remote-exec" {
-  inline = [
-   "wget https://raw.githubusercontent.com/Tikijavi/Wordpress-RDS/master/wp-config.php",
-   "sudo mv wp-config.php /var/www/html/wordpress/wp-config.php",
-   ]
- }
 }
 
 # Llençant la base de dades RDS
