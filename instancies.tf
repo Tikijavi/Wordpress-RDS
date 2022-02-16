@@ -44,7 +44,7 @@ resource "aws_instance" "Wordpress" {
  provisioner "remote-exec" {
   inline = [
    "wget https://raw.githubusercontent.com/Tikijavi/Wordpress-RDS/master/wp-config.php",
-   "sudo mv wp-config.php /var/www/html/wordpress/wp-config.php"
+   "sudo mv wp-config.php /var/www/html/wordpress/wp-config.php",
    ]
  }
 }
