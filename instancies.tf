@@ -39,14 +39,12 @@ resource "aws_instance" "Wordpress" {
   command = "echo ${aws_instance.Wordpress.public_ip} > publicIP.txt"
  }
 
- provisioner "file" {
-  content     = "wp-config.php" 
-  destination = "/var/www/html/wordpress/wp-config.php"
- }
+
 
  provisioner "remote-exec" {
   inline = [
-   "echo define( 'DB_HOST', '${aws_db_instance.DataBase.endpoint}'); > /var/www/html/wordpress/wp-config.php ",
+   "wget https://raw.githubusercontent.com/Tikijavi/Wordpress-RDS/master/wp-config.php",
+   "sudo mv wp-config.php /var/www/html/wordpress/wp-config.php"
    ]
  }
 }
