@@ -18,7 +18,7 @@ resource "aws_instance" "Wordpress" {
   }
 
   user_data = <<EOF
-         #! /bin/bash
+         #!/bin/bash
              sudo yum install httpd php php-mysql -y -q
              sudo cd /var/www/html
              echo "Welcome" > hi.html
@@ -33,7 +33,12 @@ resource "aws_instance" "Wordpress" {
              sudo mv htaccess.txt .htaccess
              sudo systemctl start httpd
              sudo systemctl enable httpd
+             sudo wget https://raw.githubusercontent.com/Tikijavi/Wordpress-RDS/master/wp-config.php
+             sudo mv wp-config.php /var/www/html/wp-config.php
+             sudo sed -i "32 i define( 'DB_HOST', '${aws_db_instance.DataBase.endpoint}');" /var/www/html/wp-config.php 
+             sudo systemctl restart httpd
       EOF
+
 
  provisioner "local-exec" {
   command = "echo ${aws_instance.Wordpress.public_ip} > publicIP.txt"
