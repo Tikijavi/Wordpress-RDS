@@ -66,5 +66,14 @@ resource "aws_db_instance" "DataBase" {
 provisioner "local-exec" {
   command = "echo ${aws_db_instance.DataBase.endpoint} > DB_host.txt"
     }
+#S3
+resource "aws_s3_bucket" "b" {
+  bucket = var.bucket
+
+  tags = {
+    Name        = var.bucket_name
+    Environment = var.bucker_env 
+  }
+}
 
 }
