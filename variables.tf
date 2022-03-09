@@ -110,6 +110,11 @@ variable "bucket_env" {
   default     = "backup"
 }
 
+variable "bucket_acl" {
+  description = "buckete acl"
+  type        = string
+  default     = "private"
+}
 
 
 
