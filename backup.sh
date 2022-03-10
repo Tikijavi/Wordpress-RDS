@@ -20,3 +20,4 @@ tar -zcf ../backups/$FILES_BACKUP .
 
 # Borralo al cabo de 1 mes
 rm -f ../backups/$(date +%Y%m%d* --date='1 mes').gz
+
