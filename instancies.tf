@@ -72,13 +72,8 @@ resource "aws_s3_bucket" "b" {
 
   tags = {
     Name        = var.bucket_name
-    Environment = var.bucker_env 
+    Environment = var.bucket_env
   }
 }
-    
-resource "aws_s3_bucket_acl" "example" {
-  bucket = aws_s3_bucket.b.id
-  acl    = var.bucket_acl
-}
 
-}
+
