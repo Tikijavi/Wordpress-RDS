@@ -66,6 +66,7 @@ resource "aws_db_instance" "DataBase" {
 provisioner "local-exec" {
   command = "echo ${aws_db_instance.DataBase.endpoint} > DB_host.txt"
     }
+}
 #S3
 resource "aws_s3_bucket" "b" {
   bucket = var.bucket
@@ -75,5 +76,10 @@ resource "aws_s3_bucket" "b" {
     Environment = var.bucket_env
   }
 }
+
+#Backups
+sudo mysqldump -u javier -p 1q2w3e4R --all-databases | gzip > mysqldb_`date +%F`.sql.gz
+sudo crontab -e
+30 23 * * * backup.sh
 
 
