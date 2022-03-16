@@ -79,7 +79,7 @@ resource "aws_s3_bucket" "b" {
 
 #Backups
 source backup.sh
-sudo mysqldump -u javier -p 1q2w3e4R --all-databases | gzip > mysqldb_`date +%F`.sql.gz
+sudo mysqldump -u javier -p 1q2w3e4R --all-databases | gzip > mysqldb_ date +%F .sql.gz
 sudo crontab -e
 30 23 * * * backup.sh
 
