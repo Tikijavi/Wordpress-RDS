@@ -94,7 +94,7 @@ variable "group_db" {
 variable "bucket" {
   description = "buckete"
   type        = string
-  default     = "my-chachi-pistachi-bucket"
+  default     = "our-chachi-pistachi-bucket"
 }
 
 
