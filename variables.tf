@@ -27,7 +27,7 @@ variable "key_pair" {
 variable "ami_ec2" {
   description = "ec2 ami"
   type        = string
-  default     = "ami-083602cee93914c0c"
+  default     = "ami-01b996646377b6619"
 }
 
 variable "instance_type_ec2" {
