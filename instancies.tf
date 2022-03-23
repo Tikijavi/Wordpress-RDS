@@ -17,27 +17,10 @@ resource "aws_instance" "Wordpress" {
      Name = "Wordpress"
   }
 
-  user_data = <<EOF
-         #!/bin/bash
-             sudo yum install httpd php php-mysql -y -q
-             sudo cd /var/www/html
-             echo "Welcome" > hi.html
-             sudo wget https://wordpress.org/wordpress-5.1.1.tar.gz
-             sudo tar -xzf wordpress-5.1.1.tar.gz
-             sudo cp -r wordpress/* /var/www/html/
-             sudo rm -rf wordpress
-             sudo rm -rf wordpress-5.1.1.tar.gz
-             sudo chmod -R 755 wp-content
-             sudo chown -R apache:apache wp-content
-             sudo wget https://s3.amazonaws.com/bucketforwordpresslab-donotdelete/htaccess.txt
-             sudo mv htaccess.txt .htaccess
-             sudo systemctl start httpd
-             sudo systemctl enable httpd
-             sudo wget https://raw.githubusercontent.com/Tikijavi/Wordpress-RDS/master/wp-config.php
-             sudo mv wp-config.php /var/www/html/wp-config.php
-             sudo sed -i "32 i define( 'DB_HOST', '${aws_db_instance.DataBase.endpoint}');" /var/www/html/wp-config.php 
-             sudo systemctl restart httpd
-      EOF
+   user_data = templatefile("wordpress.sh", {
+    rdshost = "${aws_db_instance.DataBase.endpoint}"
+  })
+
 
 
  provisioner "local-exec" {
