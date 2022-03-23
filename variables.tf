@@ -88,28 +88,3 @@ variable "group_db" {
   type        = string
   default     = "default.mysql5.7"
 }
-
-#S3
-
-variable "bucket" {
-  description = "buckete"
-  type        = string
-  default     = "our-chachi-pistachi-bucket"
-}
-
-
-variable "bucket_name" {
-  description = "buckete nombre"
-  type        = string
-  default     = "My chachi backup"
-}
-
-variable "bucket_env" {
-  description = "buckete entorno"
-  type        = string
-  default     = "backup"
-}
-
-
-
-
