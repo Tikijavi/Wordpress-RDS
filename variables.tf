@@ -88,3 +88,25 @@ variable "group_db" {
   type        = string
   default     = "default.mysql5.7"
 }
+#cloudwatch
+variable "logs_path" {
+  description = "Path of the logs in CloudWatch"
+}
+
+variable "tags" {
+  type        = map(string)
+  default     = {}
+  description = "Resource tags"
+}
+
+#cloudwatch logs
+variable "log_group_retention_in_days" {
+  description = "Por defecto puesto en 30 días."
+  type        = number
+  default     = 30
+}
+
+variable "log_group_kms_key_id" {
+  description = "Encriptador KMS para el ARN."
+  default     = ""
+}
