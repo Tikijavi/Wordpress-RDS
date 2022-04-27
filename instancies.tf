@@ -50,14 +50,18 @@ provisioner "local-exec" {
   command = "echo ${aws_db_instance.DataBase.endpoint} > DB_host.txt"
     }
 }
-#S3
-resource "aws_s3_bucket" "b" {
-  bucket = var.bucket
 
-  tags = {
-    Name        = var.bucket_name
-    Environment = var.bucket_env
-  }
+#AWS cloudwatch logs
+resource "aws_cloudwatch_log_group" "log_group" {
+  name              = var.logs_path
+  retention_in_days = var.log_group_retention_in_days
+  kms_key_id        = var.log_group_kms_key_id
+  tags              = var.tags
+}
+
+resource "aws_cloudwatch_log_stream" "log_stream" {
+  name           = var.logs_path
+  log_group_name = aws_cloudwatch_log_group.log_group.name
 }
 
 
